@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d19">
+    <meta name="description" content="Explore a website's same-host links with a live, bounded web crawler.">
+    <title>Web Crawler — Intelligent web discovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div class="orb orb-one" aria-hidden="true"></div>
+        <div class="orb orb-two" aria-hidden="true"></div>
+        <div class="eyebrow"><span class="pulse-dot"></span> Intelligent web discovery</div>
+        <h1>Find your next<br><span>connection.</span></h1>
+        <p class="hero-copy">Explore a website one page at a time. Uncover its same-host links with a fast, bounded crawler.</p>
+        <div class="hero-foot"><span class="sparkle">✦</span> Secure by design · Built for curious minds</div>
+      </header>
+
+      <section class="settings panel" aria-labelledby="settings-title">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow small">START EXPLORING</p>
+            <h2 id="settings-title">Configure your crawl</h2>
+          </div>
+          <span class="limit-badge">Up to 6 pages</span>
+        </div>
+        <form id="crawl-form">
+          <label class="field-label" for="start-url">Starting HTTPS URL</label>
+          <div class="url-field">
+            <span class="url-icon" aria-hidden="true">↗</span>
+            <input id="start-url" name="url" type="url" value="https://books.toscrape.com" placeholder="https://example.com" autocomplete="url" required>
+          </div>
+          <div class="form-bottom">
+            <label class="page-limit" for="max-pages">
+              <span class="field-label">Maximum pages</span>
+              <select id="max-pages" name="max_pages">
+                <option value="3">3 pages</option>
+                <option value="6" selected>6 pages</option>
+              </select>
+            </label>
+            <button id="crawl-button" class="primary-button" type="submit">
+              <span class="button-icon" aria-hidden="true">⌕</span>
+              <span>Start crawling</span>
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p class="safety-note"><span aria-hidden="true">◎</span> Public HTTPS sites only. Private networks and redirects are blocked. Crawl only sites you’re authorized to access.</p>
+        </form>
+      </section>
+
+      <section id="activity" class="activity panel hidden" aria-live="polite">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow small">IN PROGRESS</p>
+            <h2 id="activity-title">Mapping connections</h2>
+          </div>
+          <span class="working-indicator"><span class="pulse-dot"></span> Working</span>
+        </div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
+        <p id="status-message" class="status-message">Connecting to the starting page…</p>
+      </section>
+
+      <section id="results" class="results hidden" aria-live="polite">
+        <div class="section-title results-title">
+          <div>
+            <p class="eyebrow small">CRAWL COMPLETE</p>
+            <h2>Your crawl at a glance</h2>
+          </div>
+          <button id="download-button" class="secondary-button" type="button">↓ <span>Download CSV</span></button>
+        </div>
+        <div class="metrics">
+          <article class="metric-card">
+            <span class="metric-icon cyan" aria-hidden="true">◉</span>
+            <span class="metric-label">Pages crawled</span>
+            <strong id="pages-count" class="metric-value">0</strong>
+            <span class="metric-caption">within your page limit</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-icon violet" aria-hidden="true">✓</span>
+            <span class="metric-label">Successful pages</span>
+            <strong id="success-count" class="metric-value">0</strong>
+            <span class="metric-caption">HTML pages processed</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-icon blue" aria-hidden="true">⌘</span>
+            <span class="metric-label">Unique links</span>
+            <strong id="links-count" class="metric-value">0</strong>
+            <span class="metric-caption">discovered on this host</span>
+          </article>
+        </div>
+
+        <div class="section-title table-heading">
+          <div>
+            <p class="eyebrow small">PAGE-BY-PAGE</p>
+            <h2>Crawled pages</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Page URL</th><th>Links</th><th>Status</th></tr></thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <details class="links-panel panel">
+          <summary><span>View discovered links</span><span id="links-summary-count" class="limit-badge">0 links</span></summary>
+          <ul id="links-list" class="links-list"></ul>
+        </details>
+      </section>
+
+      <div id="error-message" class="error-panel hidden" role="alert"></div>
+      <footer>Thoughtful crawling, one connection at a time. <span>✦</span></footer>
+    </main>
+  </body>
+</html>
